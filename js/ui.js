@@ -20,7 +20,7 @@ export class UIManager {
       grillaNumeros: document.getElementById('grilla-numeros'),
       modalTicket: document.getElementById('modal-ticket'),
       cerrarModal: document.getElementById('cerrar-modal'),
-      ticketContainer: document.getElementById('ticket-container'),
+      ticketCanvas: document.getElementById('ticket-canvas'),
       btnDescargarTicket: document.getElementById('btn-descargar-ticket'),
       btnCompartirTicket: document.getElementById('btn-compartir-ticket'),
       btnExportar: document.getElementById('btn-exportar'),
@@ -185,36 +185,106 @@ export class UIManager {
     this.participanteActual = participante;
 
     if (this.elementos.ticketNombreParticipante) {
-      this.elementos.ticketNombreParticipante.textContent = participante.nombre;
+      this.elementos.ticketNombreParticipante.textContent = `Ticket #${participante.numero.toString().padStart(2, '0')} - ${participante.nombre}`;
     }
 
-    const ticket = this.elementos.ticketContainer;
-    ticket.innerHTML = `
-            <div class="ticket__titulo">${configuracion.descripcion || 'Sorteo'}</div>
-            <div class="ticket__numero">#${participante.numero.toString().padStart(2, '0')}</div>
-            <div class="ticket__info">
-                <div class="ticket__info-item">
-                    <span>Nombre</span>
-                    <strong>${participante.nombre}</strong>
-                </div>
-                <div class="ticket__info-item">
-                    <span>Teléfono</span>
-                    <strong>${participante.telefono}</strong>
-                </div>
-                <div class="ticket__info-item">
-                    <span>Precio</span>
-                    <strong>$${configuracion.precio || 0}</strong>
-                </div>
-                <div class="ticket__info-item">
-                    <span>Estado</span>
-                    <strong style="text-transform: capitalize">${participante.pago}</strong>
-                </div>
-                <div class="ticket__info-item">
-                    <span>Fecha</span>
-                    <strong>${new Date(participante.fechaRegistro).toLocaleDateString('es-ES')}</strong>
-                </div>
-            </div>
-        `;
+    const canvas = this.elementos.ticketCanvas;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const gradiente = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradiente.addColorStop(0, '#6366f1');
+    gradiente.addColorStop(1, '#4f46e5');
+
+    ctx.fillStyle = gradiente;
+    ctx.fillRect(0, 0, canvas.width, 120);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 28px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(configuracion.descripcion || 'Sorteo', canvas.width / 2, 75);
+
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 160px Inter, Arial, sans-serif';
+    ctx.fillText(`#${participante.numero.toString().padStart(2, '0')}`, canvas.width / 2, 280);
+
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(50, 320);
+    ctx.lineTo(canvas.width - 50, 320);
+    ctx.stroke();
+
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'left';
+
+    let y = 370;
+    const leftX = 60;
+    const rightX = canvas.width - 60;
+    const lineHeight = 55;
+
+    ctx.fillText('Nombre:', leftX, y);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(participante.nombre, rightX, y);
+
+    y += lineHeight;
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Teléfono:', leftX, y);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(participante.telefono, rightX, y);
+
+    y += lineHeight;
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Precio:', leftX, y);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(`$${configuracion.precio || 0}`, rightX, y);
+
+    y += lineHeight;
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Estado:', leftX, y);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    const estadoTexto = participante.pago.charAt(0).toUpperCase() + participante.pago.slice(1);
+    ctx.fillText(estadoTexto, rightX, y);
+
+    y += lineHeight;
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('Fecha:', leftX, y);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    const fecha = new Date(participante.fechaRegistro).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    ctx.fillText(fecha, rightX, y);
+
+    ctx.fillStyle = '#f1f5f9';
+    ctx.fillRect(0, canvas.height - 80, canvas.width, 80);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '16px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Generado por Sorteo App', canvas.width / 2, canvas.height - 30);
 
     this.elementos.modalTicket.classList.add('modal--activo');
   }

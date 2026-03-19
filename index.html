@@ -315,10 +315,12 @@
           </svg>
         </button>
         <div class="modal__header">
-          <h3>Ticket del Participante</h3>
+          <h3>Vista Previa del Ticket</h3>
           <p id="ticket-nombre-participante"></p>
         </div>
-        <div id="ticket-container" class="ticket"></div>
+        <div class="ticket-preview">
+          <canvas id="ticket-canvas" width="600" height="850"></canvas>
+        </div>
         <div class="modal__actions">
           <button id="btn-descargar-ticket" class="btn btn--primario btn--icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

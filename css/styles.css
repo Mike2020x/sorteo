@@ -655,35 +655,41 @@ body {
 }
 
 .ticket {
-  padding: 2rem;
-  margin: 1rem;
-  border: 2px dashed var(--color-border);
+  padding: 1.5rem;
+  margin: 0.5rem;
+  border: 3px solid var(--color-border);
   border-radius: var(--radius-lg);
   text-align: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .ticket__titulo {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
   color: var(--color-primary);
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .ticket__numero {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 700;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   color: var(--color-text-primary);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  line-height: 1;
 }
 
 .ticket__info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+  gap: 0.25rem;
+  margin-top: 1rem;
   text-align: left;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--color-border);
 }
 
 .ticket__info-item {
@@ -691,12 +697,40 @@ body {
   color: var(--color-text-secondary);
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.25rem;
   border-bottom: 1px solid var(--color-border-light);
+}
+
+.ticket__info-item span:first-child {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.ticket__info-item strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
 }
 
 .ticket__info-item:last-child {
   border-bottom: none;
+}
+
+.ticket-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f1f5f9;
+  overflow: auto;
+}
+
+.ticket-preview canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
 .modal__actions {

@@ -9,7 +9,7 @@ export class TicketGenerator {
   crearCanvas() {
     this.canvas = document.createElement('canvas');
     this.canvas.width = 600;
-    this.canvas.height = 800;
+    this.canvas.height = 850;
     this.ctx = this.canvas.getContext('2d');
   }
 
@@ -24,102 +24,96 @@ export class TicketGenerator {
     gradiente.addColorStop(1, '#4f46e5');
 
     this.ctx.fillStyle = gradiente;
-    this.ctx.fillRect(0, 0, this.canvas.width, 150);
+    this.ctx.fillRect(0, 0, this.canvas.width, 120);
 
     this.ctx.fillStyle = '#ffffff';
-    this.ctx.font = 'bold 36px Inter, Arial, sans-serif';
+    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
     this.ctx.textAlign = 'center';
-    this.ctx.fillText(configuracion.descripcion || 'Sorteo', this.canvas.width / 2, 95);
+    this.ctx.fillText(configuracion.descripcion || 'Sorteo', this.canvas.width / 2, 75);
 
     this.ctx.fillStyle = '#0f172a';
-    this.ctx.font = 'bold 180px Inter, Arial, sans-serif';
+    this.ctx.font = 'bold 160px Inter, Arial, sans-serif';
     this.ctx.fillText(
       `#${participante.numero.toString().padStart(2, '0')}`,
       this.canvas.width / 2,
-      350
+      280
     );
 
     this.ctx.strokeStyle = '#e2e8f0';
     this.ctx.lineWidth = 2;
     this.ctx.beginPath();
-    this.ctx.moveTo(50, 400);
-    this.ctx.lineTo(this.canvas.width - 50, 400);
+    this.ctx.moveTo(50, 320);
+    this.ctx.lineTo(this.canvas.width - 50, 320);
     this.ctx.stroke();
 
-    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    this.ctx.font = 'bold 22px Inter, Arial, sans-serif';
     this.ctx.fillStyle = '#64748b';
     this.ctx.textAlign = 'left';
 
-    let y = 460;
-    const padding = 80;
-    const lineHeight = 50;
+    let y = 370;
+    const leftX = 60;
+    const rightX = this.canvas.width - 60;
+    const lineHeight = 55;
 
-    this.ctx.fillText('Nombre', padding, y);
-    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
+    this.ctx.fillText('Nombre:', leftX, y);
     this.ctx.fillStyle = '#0f172a';
-    this.ctx.fillText(participante.nombre, this.canvas.width - padding, y);
-    this.ctx.textAlign = 'left';
     this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
-    this.ctx.fillStyle = '#64748b';
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(participante.nombre, rightX, y);
 
     y += lineHeight;
-    this.ctx.fillText('Teléfono', padding, y);
-    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
-    this.ctx.fillStyle = '#0f172a';
-    this.ctx.fillText(participante.telefono, this.canvas.width - padding, y);
-    this.ctx.textAlign = 'left';
-    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
     this.ctx.fillStyle = '#64748b';
+    this.ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText('Teléfono:', leftX, y);
+    this.ctx.fillStyle = '#0f172a';
+    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(participante.telefono, rightX, y);
 
     y += lineHeight;
-    this.ctx.fillText('Precio', padding, y);
-    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
-    this.ctx.fillStyle = '#0f172a';
-    this.ctx.fillText(`$${configuracion.precio || 0}`, this.canvas.width - padding, y);
-    this.ctx.textAlign = 'left';
-    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
     this.ctx.fillStyle = '#64748b';
+    this.ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText('Precio:', leftX, y);
+    this.ctx.fillStyle = '#0f172a';
+    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(`$${configuracion.precio || 0}`, rightX, y);
 
     y += lineHeight;
-    this.ctx.fillText('Estado', padding, y);
-    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
+    this.ctx.fillStyle = '#64748b';
+    this.ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText('Estado:', leftX, y);
     this.ctx.fillStyle = '#0f172a';
+    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'right';
     const estadoTexto = participante.pago.charAt(0).toUpperCase() + participante.pago.slice(1);
-    this.ctx.fillText(estadoTexto, this.canvas.width - padding, y);
-    this.ctx.textAlign = 'left';
-    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
-    this.ctx.fillStyle = '#64748b';
+    this.ctx.fillText(estadoTexto, rightX, y);
 
     y += lineHeight;
-    this.ctx.fillText('Fecha', padding, y);
-    this.ctx.font = 'bold 28px Inter, Arial, sans-serif';
+    this.ctx.fillStyle = '#64748b';
+    this.ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText('Fecha:', leftX, y);
     this.ctx.fillStyle = '#0f172a';
+    this.ctx.font = 'bold 24px Inter, Arial, sans-serif';
+    this.ctx.textAlign = 'right';
     const fecha = new Date(participante.fechaRegistro).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
-    this.ctx.fillText(fecha, this.canvas.width - padding, y);
+    this.ctx.fillText(fecha, rightX, y);
 
-    const gradienteFooter = this.ctx.createLinearGradient(
-      0,
-      this.canvas.height - 100,
-      0,
-      this.canvas.height
-    );
-    gradienteFooter.addColorStop(0, '#f8fafc');
-    gradienteFooter.addColorStop(1, '#e2e8f0');
-    this.ctx.fillStyle = gradienteFooter;
-    this.ctx.fillRect(0, this.canvas.height - 100, this.canvas.width, 100);
+    this.ctx.fillStyle = '#f1f5f9';
+    this.ctx.fillRect(0, this.canvas.height - 80, this.canvas.width, 80);
 
     this.ctx.fillStyle = '#94a3b8';
     this.ctx.font = '16px Inter, Arial, sans-serif';
     this.ctx.textAlign = 'center';
-    this.ctx.fillText(
-      'Sorteo App - Gestión de Rifa',
-      this.canvas.width / 2,
-      this.canvas.height - 50
-    );
+    this.ctx.fillText('Generado por Sorteo App', this.canvas.width / 2, this.canvas.height - 30);
 
     return this.canvas.toDataURL('image/png');
   }
