@@ -1,0 +1,20 @@
+{
+  "name": "sorteo",
+  "version": "1.0.0",
+  "description": "Aplicación de rifa con generación de boletos",
+  "scripts": {
+    "dev": "npx serve",
+    "start": "npx serve",
+    "test": "npx playwright test",
+    "test:single": "npx playwright test --grep",
+    "test:ui": "npx playwright test --ui",
+    "lint": "npx eslint .",
+    "format": "npx prettier --write .",
+    "lint:fix": "npx eslint --fix ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.0"
+  }
+}
