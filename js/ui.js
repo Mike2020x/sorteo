@@ -119,7 +119,7 @@ export class UIManager {
     div.dataset.numero = participante.numero;
 
     div.innerHTML = `
-            <div class="participante__numero">#${participante.numero}</div>
+            <div class="participante__numero">#${participante.numero.toString().padStart(2, '0')}</div>
             <div class="participante__info">
                 <span class="participante__nombre">${participante.nombre}</span>
                 <span class="participante__telefono">${participante.telefono}</span>
@@ -170,7 +170,7 @@ export class UIManager {
     for (let i = min; i <= max; i++) {
       const numeroDiv = document.createElement('div');
       numeroDiv.className = `numero ${numerosOcupados.includes(i) ? 'numero--ocupado' : ''}`;
-      numeroDiv.textContent = i;
+      numeroDiv.textContent = i.toString().padStart(2, '0');
       numeroDiv.dataset.numero = i;
 
       if (!numerosOcupados.includes(i)) {
@@ -191,7 +191,7 @@ export class UIManager {
     const ticket = this.elementos.ticketContainer;
     ticket.innerHTML = `
             <div class="ticket__titulo">${configuracion.descripcion || 'Sorteo'}</div>
-            <div class="ticket__numero">#${participante.numero}</div>
+            <div class="ticket__numero">#${participante.numero.toString().padStart(2, '0')}</div>
             <div class="ticket__info">
                 <div class="ticket__info-item">
                     <span>Nombre</span>

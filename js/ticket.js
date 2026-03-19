@@ -33,7 +33,11 @@ export class TicketGenerator {
 
     this.ctx.fillStyle = '#0f172a';
     this.ctx.font = 'bold 180px Inter, Arial, sans-serif';
-    this.ctx.fillText(`#${participante.numero}`, this.canvas.width / 2, 350);
+    this.ctx.fillText(
+      `#${participante.numero.toString().padStart(2, '0')}`,
+      this.canvas.width / 2,
+      350
+    );
 
     this.ctx.strokeStyle = '#e2e8f0';
     this.ctx.lineWidth = 2;
@@ -124,7 +128,7 @@ export class TicketGenerator {
     const dataUrl = this.generarTicket(participante, configuracion);
 
     const link = document.createElement('a');
-    link.download = `ticket-${participante.numero}-${participante.nombre.replace(/\s+/g, '-')}.png`;
+    link.download = `ticket-${participante.numero.toString().padStart(2, '0')}-${participante.nombre.replace(/\s+/g, '-')}.png`;
     link.href = dataUrl;
     link.click();
   }
@@ -135,12 +139,13 @@ export class TicketGenerator {
     if (navigator.share && navigator.canShare) {
       try {
         const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], `ticket-${participante.numero}.png`, { type: 'image/png' });
+        const numeroPadded = participante.numero.toString().padStart(2, '0');
+        const file = new File([blob], `ticket-${numeroPadded}.png`, { type: 'image/png' });
 
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
-            title: `Ticket #${participante.numero} - ${configuracion.descripcion || 'Sorteo'}`,
-            text: `¡Aquí está tu ticket para ${configuracion.descripcion || 'el sorteo'}! Tu número es el #${participante.numero}.`,
+            title: `Ticket #${numeroPadded} - ${configuracion.descripcion || 'Sorteo'}`,
+            text: `¡Aquí está tu ticket para ${configuracion.descripcion || 'el sorteo'}! Tu número es el #${numeroPadded}.`,
             files: [file],
           });
           return { exito: true };
@@ -159,10 +164,11 @@ export class TicketGenerator {
   }
 
   async compartirTexto(participante, configuracion) {
+    const numeroPadded = participante.numero.toString().padStart(2, '0');
     const texto = `
 🎫 *Ticket de ${configuracion.descripcion || 'Sorteo'}*
 
-📌 *Número:* #${participante.numero}
+📌 *Número:* #${numeroPadded}
 👤 *Nombre:* ${participante.nombre}
 📞 *Teléfono:* ${participante.telefono}
 💰 *Precio:* $${configuracion.precio || 0}
@@ -174,7 +180,7 @@ export class TicketGenerator {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Ticket #${participante.numero}`,
+          title: `Ticket #${numeroPadded}`,
           text: texto,
         });
         return { exito: true };
