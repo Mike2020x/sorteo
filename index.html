@@ -142,118 +142,122 @@
       </section>
 
       <section id="registro" class="seccion">
-        <h2 class="seccion__titulo">
-          <svg
-            class="seccion__icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="8.5" cy="7" r="4" />
-            <line x1="20" y1="8" x2="20" y2="14" />
-            <line x1="23" y1="11" x2="17" y2="11" />
-          </svg>
-          Registrar Participante
-        </h2>
-        <form id="form-participante" class="form form--grid">
-          <div class="form__grupo">
-            <label for="nombre" class="form__label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              Nombre completo
-            </label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              class="form__input"
-              placeholder="Ej: Juan Pérez"
-              required
-            />
-          </div>
-          <div class="form__grupo">
-            <label for="telefono" class="form__label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                />
-              </svg>
-              Teléfono
-            </label>
-            <input
-              type="tel"
-              id="telefono"
-              name="telefono"
-              class="form__input"
-              placeholder="Ej: 55 1234 5678"
-              required
-            />
-          </div>
-          <div class="form__grupo">
-            <label for="numero" class="form__label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <line x1="9" y1="9" x2="15" y2="9" />
-                <line x1="9" y1="15" x2="15" y2="15" />
-              </svg>
-              Número(s) (0-99)
-            </label>
-            <input
-              type="text"
-              id="numero"
-              name="numero"
-              class="form__input form__input--numero"
-              placeholder="Ej: 5, 12, 25"
-            />
-            <small class="form__ayuda">Ingresa números separados por coma (ej: 5, 12, 25)</small>
-          </div>
-          <div class="form__grupo">
-            <label class="form__label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                <line x1="1" y1="10" x2="23" y2="10" />
-              </svg>
-              Estado de pago
-            </label>
-            <div class="form__radio-grupo">
-              <label class="form__radio form__radio--card">
-                <input type="radio" name="pago" value="pendiente" checked />
-                <span class="form__radio-content">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                  Pendiente
-                </span>
+        <div class="seccion__header">
+          <h2 class="seccion__titulo">
+            <svg
+              class="seccion__icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" y1="8" x2="20" y2="14" />
+              <line x1="23" y1="11" x2="17" y2="11" />
+            </svg>
+            Registrar Participante
+          </h2>
+        </div>
+        <div class="seccion__contenido seccion__contenido--registro">
+          <form id="form-participante" class="form form--grid">
+            <div class="form__grupo">
+              <label for="nombre" class="form__label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                Nombre completo
               </label>
-              <label class="form__radio form__radio--card">
-                <input type="radio" name="pago" value="pagado" />
-                <span class="form__radio-content">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                  Pagado
-                </span>
-              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                class="form__input"
+                placeholder="Ej: Juan Pérez"
+                required
+              />
             </div>
-          </div>
-          <div class="form__acciones">
-            <button type="submit" class="btn btn--primario btn--full">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="8.5" cy="7" r="4" />
-                <line x1="20" y1="8" x2="20" y2="14" />
-                <line x1="23" y1="11" x2="17" y2="11" />
-              </svg>
-              Registrar Participante
-            </button>
-          </div>
-        </form>
+            <div class="form__grupo">
+              <label for="telefono" class="form__label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+                Teléfono
+              </label>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="form__input"
+                placeholder="Ej: 55 1234 5678"
+                required
+              />
+            </div>
+            <div class="form__grupo">
+              <label for="numero" class="form__label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <line x1="9" y1="9" x2="15" y2="9" />
+                  <line x1="9" y1="15" x2="15" y2="15" />
+                </svg>
+                Número(s) (0-99)
+              </label>
+              <input
+                type="text"
+                id="numero"
+                name="numero"
+                class="form__input form__input--numero"
+                placeholder="Ej: 5, 12, 25"
+              />
+              <small class="form__ayuda">Ingresa números separados por coma (ej: 5, 12, 25)</small>
+            </div>
+            <div class="form__grupo">
+              <label class="form__label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+                Estado de pago
+              </label>
+              <div class="form__radio-grupo">
+                <label class="form__radio form__radio--card">
+                  <input type="radio" name="pago" value="pendiente" checked />
+                  <span class="form__radio-content">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Pendiente
+                  </span>
+                </label>
+                <label class="form__radio form__radio--card">
+                  <input type="radio" name="pago" value="pagado" />
+                  <span class="form__radio-content">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    Pagado
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="form__acciones">
+              <button type="submit" class="btn btn--primario btn--full">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+                Registrar Participante
+              </button>
+            </div>
+          </form>
+        </div>
       </section>
 
       <section id="participantes" class="seccion">
