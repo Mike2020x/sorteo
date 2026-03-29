@@ -76,6 +76,35 @@ class App {
         uiManager.cerrarModalTicket();
       }
     });
+
+    // Botón flotante para ir al final
+    this.configurarBotonFlotante();
+  }
+
+  configurarBotonFlotante() {
+    const btnIrAbajo = document.getElementById('btn-ir-abajo');
+    if (!btnIrAbajo) return;
+
+    // Mostrar/ocultar según el scroll
+    window.addEventListener('scroll', () => {
+      const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollActual = window.scrollY;
+
+      // Mostrar cuando el usuario ha scrolleado al menos 300px y no está ya al final
+      if (scrollActual > 300 && scrollActual < scrollTotal - 100) {
+        btnIrAbajo.classList.add('visible');
+      } else {
+        btnIrAbajo.classList.remove('visible');
+      }
+    });
+
+    // Ir al hacer click
+    btnIrAbajo.addEventListener('click', () => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    });
   }
 
   cargarDatosIniciales() {
@@ -108,6 +137,34 @@ class App {
     }
   }
 
+  /**
+   * Parsea el input de números en un array de números únicos
+   * Acepta solo números separados por coma: "5,12,25" o "5, 12, 25"
+   */
+  parsearNumeros(input) {
+    const numeros = new Set();
+
+    if (!input || typeof input !== 'string') {
+      return [];
+    }
+
+    // Dividir solo por coma
+    const partes = input.split(',');
+
+    for (const parte of partes) {
+      const trimmed = parte.trim();
+      if (!trimmed) continue;
+
+      // Es un número individual
+      const num = parseInt(trimmed, 10);
+      if (!isNaN(num) && num >= MIN_NUMERO && num <= MAX_NUMERO) {
+        numeros.add(num);
+      }
+    }
+
+    return Array.from(numeros).sort((a, b) => a - b);
+  }
+
   registrarParticipante() {
     const datos = uiManager.obtenerDatosFormularioParticipante();
 
@@ -116,19 +173,50 @@ class App {
       return;
     }
 
-    if (isNaN(datos.numero) || datos.numero < MIN_NUMERO || datos.numero > MAX_NUMERO) {
-      uiManager.mostrarMensaje(MENSAJES_ERROR.NUMERO_INVALIDO, 'error');
+    // Parsear múltiples números del input
+    const numeros = this.parsearNumeros(datos.numeroString);
+
+    if (numeros.length === 0) {
+      uiManager.mostrarMensaje('Ingresa al menos un número válido (0-99)', 'error');
       return;
     }
 
-    const resultado = storageManager.agregarParticipante(datos);
+    // Obtener números ya ocupados
+    const numerosOcupados = storageManager.obtenerNumerosOcupados();
+    const numerosYaOcupados = numeros.filter(n => numerosOcupados.includes(n));
 
-    if (resultado.exito) {
-      uiManager.mostrarMensaje(MENSAJES_EXITO.PARTICIPANTE_REGISTRADO, 'success');
+    // Si hay números ocupados, bloquear la operación
+    if (numerosYaOcupados.length > 0) {
+      uiManager.mostrarMensaje(
+        `Los siguientes números ya están ocupados: ${numerosYaOcupados.join(', ')}`,
+        'error'
+      );
+      return;
+    }
+
+    // Registrar los números
+    let registrados = 0;
+
+    for (const numero of numeros) {
+      const participante = {
+        nombre: datos.nombre,
+        telefono: datos.telefono,
+        numero: numero,
+        pago: datos.pago,
+      };
+
+      const resultado = storageManager.agregarParticipante(participante);
+      if (resultado.exito) {
+        registrados++;
+      }
+    }
+
+    if (registrados > 0) {
+      uiManager.mostrarMensaje(`${registrados} número(s) registrado(s) correctamente`, 'success');
       uiManager.limpiarFormularioParticipante();
       this.actualizarVista();
     } else {
-      uiManager.mostrarMensaje(resultado.error || MENSAJES_ERROR.ERROR_GUARDAR, 'error');
+      uiManager.mostrarMensaje(MENSAJES_ERROR.ERROR_GUARDAR, 'error');
     }
   }
 
