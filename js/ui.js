@@ -115,7 +115,7 @@ export class UIManager {
 
   crearElementoParticipante(participante, alEliminar, alEditar, alVerTicket) {
     const div = document.createElement('div');
-    div.className = `participante`;
+    div.className = 'participante';
     div.dataset.numero = participante.numero;
 
     div.innerHTML = `
@@ -310,6 +310,12 @@ export class UIManager {
 
     const radioPendiente = document.querySelector('input[name="pago"][value="pendiente"]');
     if (radioPendiente) radioPendiente.checked = true;
+
+    // Quitar clase de validación de números
+    const formParticipante = document.getElementById('form-participante');
+    if (formParticipante) {
+      formParticipante.classList.remove('has-error', 'has-success');
+    }
   }
 
   obtenerDatosFormularioParticipante() {
@@ -317,6 +323,7 @@ export class UIManager {
       nombre: this.elementos.nombre.value.trim(),
       telefono: this.elementos.telefono.value.trim(),
       numero: parseInt(this.elementos.numero.value, 10),
+      numeroString: this.elementos.numero.value.trim(),
       pago: this.obtenerValorRadio('pago'),
     };
   }

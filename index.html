@@ -200,18 +200,16 @@
                 <line x1="9" y1="9" x2="15" y2="9" />
                 <line x1="9" y1="15" x2="15" y2="15" />
               </svg>
-              Número (0-99)
+              Número(s) (0-99)
             </label>
             <input
-              type="number"
+              type="text"
               id="numero"
               name="numero"
               class="form__input form__input--numero"
-              min="0"
-              max="99"
-              placeholder="0-99"
-              required
+              placeholder="Ej: 5, 12, 25"
             />
+            <small class="form__ayuda">Ingresa números separados por coma (ej: 5, 12, 25)</small>
           </div>
           <div class="form__grupo">
             <label class="form__label">
@@ -349,6 +347,18 @@
     </footer>
 
     <div id="toast-container" class="toast-container"></div>
+
+    <!-- Botón flotante para ir al final -->
+    <button
+      id="btn-ir-abajo"
+      class="btn-flotante"
+      aria-label="Ir al final de la página"
+      title="Ir al final"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
 
     <script type="module" src="js/app.js"></script>
   </body>
