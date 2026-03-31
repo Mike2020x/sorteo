@@ -33,6 +33,10 @@ export class UIManager {
       numerosLibres: document.getElementById('numeros-libres'),
       ticketNombreParticipante: document.getElementById('ticket-nombre-participante'),
       toastContainer: document.getElementById('toast-container'),
+      modalConfirmarEliminacion: document.getElementById('modal-confirmar-eliminacion'),
+      btnCancelarEliminacion: document.getElementById('btn-cancelar-eliminacion'),
+      btnConfirmarEliminacion: document.getElementById('btn-confirmar-eliminacion'),
+      mensajeConfirmacion: document.getElementById('mensaje-confirmacion'),
     };
 
     this.configurarCollapsible();
@@ -75,6 +79,43 @@ export class UIManager {
       toast.style.animation = 'slideInRight 0.3s ease-out reverse';
       setTimeout(() => toast.remove(), 300);
     }, 4000);
+  }
+
+  mostrarModalConfirmacion(participante, callbackEliminar) {
+    this.elementos.mensajeConfirmacion.textContent = `¿Estás seguro de que deseas eliminar a ${participante.nombre} (número ${participante.numero})?`;
+    this.elementos.modalConfirmarEliminacion.classList.add('modal--activo');
+
+    const confirmar = () => {
+      this.ocultarModalConfirmacion();
+      callbackEliminar(participante.numero);
+    };
+
+    const cancelar = () => {
+      this.ocultarModalConfirmacion();
+    };
+
+    this.elementos.btnConfirmarEliminacion.onclick = confirmar;
+    this.elementos.btnCancelarEliminacion.onclick = cancelar;
+
+    // Cerrar con ESC
+    const handler = (e) => {
+      if (e.key === 'Escape') {
+        cancelar();
+        document.removeEventListener('keydown', handler);
+      }
+    };
+    document.addEventListener('keydown', handler);
+
+    // Cerrar haciendo click fuera
+    this.elementos.modalConfirmarEliminacion.onclick = (e) => {
+      if (e.target === this.elementos.modalConfirmarEliminacion) {
+        cancelar();
+      }
+    };
+  }
+
+  ocultarModalConfirmacion() {
+    this.elementos.modalConfirmarEliminacion.classList.remove('modal--activo');
   }
 
   actualizarContadores(participantes, totalNumeros) {
@@ -155,9 +196,7 @@ export class UIManager {
     });
 
     div.querySelector('.btn-eliminar').addEventListener('click', () => {
-      if (confirm(`¿Estás seguro de eliminar a ${participante.nombre}?`)) {
-        alEliminar(participante.numero);
-      }
+      this.mostrarModalConfirmacion(participante, alEliminar);
     });
 
     return div;
