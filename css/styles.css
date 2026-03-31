@@ -694,6 +694,10 @@ body {
   border: 1px solid var(--color-border);
 }
 
+.modal__contenido--pequeno {
+  max-width: 400px;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -750,6 +754,16 @@ body {
 .modal__header p {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
+}
+
+.modal__body {
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+
+.modal__body p {
+  margin: 0;
+  color: var(--color-text-primary);
 }
 
 .ticket-preview {
@@ -1026,5 +1040,74 @@ body {
 
   .participante__estado {
     font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+  }
+
+  .header__titulo {
+    font-size: 1.125rem;
+  }
+
+  .seccion__titulo {
+    font-size: 1rem;
+  }
+
+  .grilla-numeros {
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+    gap: 0.25rem;
+  }
+
+  .numero {
+    font-size: 0.6875rem;
+    padding: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .participante__nombre {
+    font-size: 0.875rem;
+  }
+
+  .participante__telefono {
+    font-size: 0.8125rem;
+  }
+
+  .participante__estado {
+    font-size: 0.625rem;
+  }
+
+  .modal__contenido {
+    margin: 1rem;
+    max-width: none;
+  }
+
+  .modal__contenido--pequeno {
+    max-width: none;
+  }
+
+  .modal__header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .modal__body {
+    padding: 1rem 1.5rem;
+  }
+
+  .modal__actions {
+    padding: 1rem 1.5rem 1.5rem;
+    flex-direction: column;
+  }
+
+  .toast-container {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
   }
 }
